@@ -43,15 +43,18 @@ lm_res_t LightModule::measure(){
 }
 
 String LightModule::toString(){
-   String res = "==Left==\n";
+   String res = "==Left==";
    res += _left.toString();
    res += "\n";
-   res += "==Right==";
-   res += _right.toString();
-   res += "\n";
+
    res += "==Middle==";
    res += _middle.toString();
    res += "\n";
+   
+   res += "==Right==";
+   res += _right.toString();
+   res += "\n";
+   
    res += "RESULT: ";
    lm_res_t lm_res = this->measure();
    switch(lm_res){
