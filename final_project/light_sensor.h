@@ -13,7 +13,7 @@ class LightSensor{
 		LightSensor(int pin, int cutoff);
 		tape_result_t read();
 		int readRaw();
-		String toString();
+		String toString(); 
 	private:
 		int _pin;
 		int _cutoff;

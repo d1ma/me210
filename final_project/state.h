@@ -2,67 +2,37 @@
 #define State_h
 
 #include <Timers.h>
-
-enum line_state_t{
-	line_normal;
-	line_timed_instruction;
-	line_saving;
-};
-
-
-enum game_state_t {
-	state_init,
-	state_line_searching,
-	state_line,
-	state_dunk
-};
-
-
-enum line_orientation_t {
-	unknown,
-	right,
-	left
-};
-
+#include "driver.h"
+#include "Arduino.h"
+#include "light_module.h"
 
 class State{
 public:
-	State();
-	virtual void execute(Driver d, LightModule lm);
-	virtual bool done();
-	void resetTimer(int millis);
-	bool timerExpired();
-private:
-	int _timer;
+	virtual void execute(Driver d, LightModule lm) =0;
+	virtual bool done() = 0;
+	void resetTimer(int t, int millis);
+	bool timerExpired(int t);
 };
 
-bool State::timerExpired(){
-  	return (bool)TMRArd_IsTimerExpired(_timer);
-}
 
-void State::resetTimer(int millis){
-  TMRArd_InitTimer(_timer, millis);
-}
-
-class TestTurnRight : public State {
+class LineFollow : public State {
 public:
-	TestTurnRight(int amount);
-	void execute(Driver d, LightModule lm);
-	void bool done();
+  LineFollow();
+  void execute(Driver d, LightModule lm);
+  bool done();
+private:
+  void adjustLeft(Driver d);
+  void adjustRight(Driver d);
+  bool adjusting = false;
+  int countWithoutBlack = 0;
+  int oldL;
+  int oldR;
+  int oldM; 
 };
 
 
-TestTurnRight::TestTurnRight(int amount){
-	resetTimer(amount);
-}
 
-void TestTurnRight::execute(Driver d, LightModule lm){
-	d.turnRight();
-}
 
-bool TestTurnRight::done(){
-	return timerExpired();
-}
 
 
 #endif

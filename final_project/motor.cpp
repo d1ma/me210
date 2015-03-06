@@ -17,15 +17,21 @@ bool signChanged(int one, int two){
 }
 
 void Motor::move(int pwm){
-  if (pwm != _lastPwm){
-    bool signChanged = signChanged(pwm, _lastPwm);
-    if (signChanged){
+  //if (pwm != _lastPwm){
+    Serial.print("Motor: ");
+    Serial.println(pwm);
+    bool sc = signChanged(pwm, _lastPwm);
+    if (sc){
       int dir = (pwm > 0) ? HIGH : LOW;
       digitalWrite(_dirPin, dir);
     }
-    analogWrite(_enablePin, pwm);
+    if (pwm >= 0){
+      analogWrite(_enablePin, pwm);
+    }else{
+      analogWrite(_enablePin, -pwm);
+    }
     _lastPwm = pwm;
-  }
+  //}
 }
 
 void Motor::move(bool forward){

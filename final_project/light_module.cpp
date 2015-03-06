@@ -4,13 +4,25 @@
 */
 
 #import "light_module.h"
+#import <Timers.h>
+
+
 
 LightModule::LightModule(){
   
 } 
 
+int LightModule::readLeft(){
+  return _left.readRaw();
+}
+
+int LightModule::readRight(){
+  return _right.readRaw();
+}
 
 lm_res_t LightModule::measure(){
+    
+  
     tape_result_t l = _left.read();
     tape_result_t r = _right.read();
     tape_result_t m = _middle.read();

@@ -2,18 +2,23 @@
 #define Driver_h
 
 #import "Arduino.h"
-#import "decision_maker.h"
 #import "motor.h"
     
 class Driver{
   public:
     Driver();
     void straight();
-  	void rotateLeft();
-  	void rotateRight();
-  	void stop();
-    Motor _leftMotor = Motor(3,2,170);
-    Motor _rightMotor = Motor(5,4,170);
+    void straightAlongWall();
+    void rotateLeft();
+    void rotateRight();
+    void turnRight();
+    void turnLeft();
+    void adjustLeft();
+    void adjustRight();
+    void back();
+    void stop();
+    Motor _leftMotor = Motor(3,2,175);
+    Motor _rightMotor = Motor(5,4,180);
   private:
   	int _timer = 5;
   	bool timerExpired();

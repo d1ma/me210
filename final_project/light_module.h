@@ -5,7 +5,7 @@
 #include "Arduino.h"
 #include "light_sensor.h"
 
-enum lm_res_t{
+enum lm_res_t {
   bbb,
   bbw,
   wbw,
@@ -16,15 +16,17 @@ enum lm_res_t{
   err
 };
 
-class LightModule{
-	public:
-		LightModule();
-		lm_res_t measure();
-		String toString();
-	private:
-                LightSensor _right = LightSensor (A0, 350);
-                LightSensor _middle = LightSensor(A1, 400);
-                LightSensor _left = LightSensor(A2, 250); 
+class LightModule {
+  public:
+    LightModule();
+    lm_res_t measure();
+    String toString();
+    int readLeft();
+    int readRight();
+  
+    LightSensor _right = LightSensor (A0, 400);
+    LightSensor _middle = LightSensor(A1, 400);
+    LightSensor _left = LightSensor(A2, 400);
 };
 
 #endif

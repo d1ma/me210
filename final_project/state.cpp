@@ -1,15 +1,14 @@
-#include "timer.h"
+
 #include <Timers.h>
+#include "state.h"
 
-State::State(){
-	TMRArd_InitTimer(_timer, 0);
+bool State::timerExpired(int t){
+  TMRArdReturn_t r = TMRArd_IsTimerExpired(t);
+  return r == TMRArd_EXPIRED || r == TMRArd_ERR;
+}
+
+void State::resetTimer(int timer, int m){
+  TMRArd_InitTimer(timer, m);
 }
 
 
-void timerRest(int millis){
-	TMRArd_InitTimer(_timer, millis);
-}
-
-bool isTimerExpired(){
-	return (bool) TMRArd_IsTimerExpired(_timer);
-}
