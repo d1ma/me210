@@ -15,52 +15,85 @@ Driver::Driver(){
   return;
 }
 
+void Driver::backHard() {
+  _leftMotor.move(-_leftMotor._pow);
+  _rightMotor.move(-_rightMotor._pow);
+}
 void Driver::back(){
   _leftMotor.move(false);
   _rightMotor.move(false);
-  delay(300);
+  
+}
+
+void Driver::turnTinyLeft(){
+  _leftMotor.move(-90);
+  _rightMotor.move(200);
+  delay(250);
   stop();
-  delay(150);
 }
 
 void Driver::straightAlongWall(){
-  _leftMotor.move(205);
-  _rightMotor.move(185);
-  delay(300);
-  stop();
-  delay(50);
+  _leftMotor.move(180);
+  _rightMotor.move(176);
+  
+ 
+//  delay(250);
+//  stop();
+//  delay(50);
+}
+
+void Driver::straightAlongWallSlowDown(){
+  static bool timerInited = false;
+  if (!timerInited){
+    TMRArd_InitTimer(11, 800);
+    timerInited = true;
+  }
+  if (TMRArd_IsTimerExpired(11)){
+    _leftMotor.move(141);
+    _rightMotor.move(141); 
+  } else{
+    _leftMotor.move(150);
+    _rightMotor.move(150);
+  }
 }
   
   
 
 void Driver::straight(){
-        static int counter = 0;
-        counter++;
-        if (counter % 2 == 0){
-	_rightMotor.move(true);
-	_leftMotor.move(true);
-        }
-        else{
-	_leftMotor.move(true);
-	_rightMotor.move(true);
-        }
 
-        delay(250);
-        stop();
-        delay(10);
-        
+	_rightMotor.move(true);
+	_leftMotor.move(true);
+//        delay(100);
+//        stop();
+//        delay(10);
+//        delay(250);
+//        stop();
+//        delay(40);
 }
 
 void Driver::rotateLeft(){
 	_rightMotor.move(true);
 	_leftMotor.move(false);
-        delay(500);
-        stop();
+
+}
+
+void Driver::rotateLeftLittle(){
+         _rightMotor.move(220);
+         _leftMotor.move(-220);
+         delay(200);
+         stop();
 }
 
 void Driver::rotateRight(){
-	_leftMotor.move(true);
-	_rightMotor.move(false);
+  _rightMotor.move(false);
+  _leftMotor.move(true);
+}
+
+void Driver::rotateRightLittle(){
+	_leftMotor.move(-220);
+	_rightMotor.move(220);
+        delay(200);
+        stop();
 }
 
 void Driver::stop(){
